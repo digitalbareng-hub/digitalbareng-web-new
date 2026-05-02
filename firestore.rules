@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    
+    // Validation for Consultation
+    function isValidConsultation(data) {
+      return data.keys().hasAll(['userId', 'name', 'email', 'message', 'status', 'createdAt']) &&
+        data.keys().size() == 6 &&
+        data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+        data.email is string && data.email.size() > 0 && data.email.size() <= 100 &&
+        data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
+        data.status is string && data.status in ['pending', 'contacted', 'closed'] &&
+        data.createdAt == request.time;
+    }
+
+    match /consultations/{consultationId} {
+      // Users can list and get their own consultations
+      allow get, list: if isSignedIn() && existing().userId == request.auth.uid;
+      
+      // Users can create consultations for themselves
+      allow create: if isSignedIn() && isValidId(consultationId) && isValidConsultation(incoming());
+      
+      allow update, delete: if false;
+    }
+  }
+}
