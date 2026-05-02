@@ -52,6 +52,30 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:image" content={seo.image} />
 
       <meta name="robots" content="index, follow" />
+
+      {/* Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": article ? "Article" : "WebSite",
+          "url": seo.url,
+          "name": seo.title,
+          "description": seo.description,
+          "image": seo.image,
+          "author": {
+            "@type": "Organization",
+            "name": "Digital Bareng"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Digital Bareng",
+            "logo": {
+              "@type": "ImageObject",
+              "url": defaultImage
+            }
+          }
+        })}
+      </script>
     </Helmet>
   );
 };
