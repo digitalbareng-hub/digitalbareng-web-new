@@ -27,13 +27,24 @@ service cloud.firestore {
         data.createdAt == request.time;
     }
 
+    // Validation for Comments
+    function isValidComment(data) {
+      return data.keys().hasAll(['articleId', 'comment', 'createdAt']) &&
+        data.keys().size() == 3 &&
+        data.articleId is string && data.articleId.size() > 0 && data.articleId.size() <= 128 &&
+        data.comment is string && data.comment.size() > 0 && data.comment.size() <= 1000 &&
+        data.createdAt == request.time;
+    }
+
     match /consultations/{consultationId} {
-      // Users can list and get their own consultations
       allow get, list: if isSignedIn() && existing().userId == request.auth.uid;
-      
-      // Users can create consultations for themselves
       allow create: if isSignedIn() && isValidId(consultationId) && isValidConsultation(incoming());
-      
+      allow update, delete: if false;
+    }
+
+    match /comments/{commentId} {
+      allow read: if true;
+      allow create: if isValidId(commentId) && isValidComment(incoming());
       allow update, delete: if false;
     }
   }

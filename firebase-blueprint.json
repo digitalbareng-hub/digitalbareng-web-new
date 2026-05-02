@@ -13,12 +13,27 @@
         "createdAt": { "type": "number", "description": "Firestore server timestamp" }
       },
       "required": ["userId", "name", "email", "message", "status", "createdAt"]
+    },
+    "comment": {
+      "title": "Article Comment",
+      "description": "User comments on an article.",
+      "type": "object",
+      "properties": {
+        "articleId": { "type": "string" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "number", "description": "Firestore server timestamp" }
+      },
+      "required": ["articleId", "comment", "createdAt"]
     }
   },
   "firestore": {
     "/consultations/{consultationId}": {
       "schema": { "$ref": "#/entities/consultation" },
       "description": "Store consultation requests."
+    },
+    "/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/comment" },
+      "description": "Store comments for articles."
     }
   }
 }

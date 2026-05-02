@@ -6,6 +6,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -16,6 +17,9 @@ import Tools from './pages/Tools';
 import Guide from './pages/Guide';
 import ArticleDetail from './pages/ArticleDetail';
 import NotFound from './pages/NotFound';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
+import Contact from './pages/Contact';
 
 export default function App() {
   return (
@@ -31,8 +35,12 @@ export default function App() {
         <Route path="/blog/:id" element={<ArticleDetail />} />
         <Route path="/tools" element={<Tools />} />
         <Route path="/guide" element={<Guide />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-use" element={<TermsOfUse />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
