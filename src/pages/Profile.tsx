@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, User as UserIcon, Mail, LogOut, CheckCircle2, AlertCircle, RefreshCw, Key, ShieldCheck, Eye, EyeOff, ExternalLink, Trash2, Zap } from 'lucide-react';
 import { auth, logout } from '../lib/firebase';
-import { onAuthStateChanged, User, sendEmailVerification } from 'firebase/auth';
+import { sendEmailVerification } from 'firebase/auth';
 import { useGeminiKey } from '../contexts/GeminiKeyContext';
-import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../contexts/AuthContext';
+import SEO from '../components/SEO';
 
 export default function Profile() {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, loading } = useAuth();
   const [isResending, setIsResending] = useState(false);
   const [resendMessage, setResendMessage] = useState('');
   const [showKey, setShowKey] = useState(false);
@@ -18,17 +18,10 @@ export default function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        navigate('/login');
-      } else {
-        setUser(currentUser);
-      }
-      setIsLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [navigate]);
+    if (!loading && !user) {
+      navigate('/login');
+    }
+  }, [user, loading, navigate]);
 
   const handleLogout = async () => {
     try {
@@ -65,10 +58,10 @@ export default function Profile() {
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-orange-600 border-t-transparent"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-orange-600 border-t-transparent shadow-lg shadow-orange-100"></div>
       </div>
     );
   }
@@ -77,9 +70,7 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      <Helmet>
-        <title>Profil Saya | Digital Bareng</title>
-      </Helmet>
+      <SEO title="Profil Saya | Digital Bareng" />
       <div className="max-w-3xl mx-auto">
         <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />

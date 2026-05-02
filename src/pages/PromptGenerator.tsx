@@ -6,7 +6,7 @@ import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useGeminiKey } from '../contexts/GeminiKeyContext';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 export default function PromptGenerator() {
   const navigate = useNavigate();
@@ -78,10 +78,11 @@ export default function PromptGenerator() {
 
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
-      <Helmet>
-        <title>AI Prompt Generator - Buat Prompt Gambar Microstock | Digital Bareng</title>
-        <meta name="description" content="Ubah ide sederhana menjadi prompt AI Image profesional berbahasa Inggris yang siap jual di Adobe Stock dan agensi microstock lainnya." />
-      </Helmet>
+      <SEO 
+        title="AI Prompt Generator - Buat Prompt Gambar Microstock | Digital Bareng"
+        description="Ubah ide sederhana menjadi prompt AI Image profesional berbahasa Inggris yang siap jual di Adobe Stock dan agensi microstock lainnya."
+        keywords="ai prompt generator, microstock prompts, ai art keywords, midjourney prompts"
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -103,6 +104,7 @@ export default function PromptGenerator() {
               <p className="text-sm text-amber-800">Anda perlu memasukkan Gemini API Key di profil Anda untuk menggunakan alat ini secara gratis.</p>
             </div>
             <Link 
+              reloadDocument
               to="/profile" 
               className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-sm transition-colors shrink-0"
             >

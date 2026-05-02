@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, PlayCircle, Map, Target } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 export default function Guide() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans pt-12">
-      <Helmet>
-        <title>Panduan Microstock AI 2026 - Roadmap Dari Nol | Digital Bareng</title>
-        <meta name="description" content="Roadmap lengkap cara menghasilkan Dollar dari Microstock AI. Panduan step-by-step persiapan, produksi, hingga distribusi aset digital." />
-      </Helmet>
+      <SEO 
+        title="Panduan Microstock AI 2026 - Roadmap Dari Nol | Digital Bareng"
+        description="Roadmap lengkap cara menghasilkan Dollar dari Microstock AI. Panduan step-by-step persiapan, produksi, hingga distribusi aset digital."
+        keywords="panduan microstock, roadmap ai, belajar adobe stock, pngtree strategy"
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-10 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-orange-100 text-orange-600 mb-6 shadow-sm">
@@ -95,7 +96,7 @@ export default function Guide() {
             <p className="text-slate-400 mb-10 max-w-lg mx-auto text-lg relative z-10">
               Dapatkan insight eksklusif dan strategi terbaru seputar microstock AI langsung di blog resmi Digital Bareng.
             </p>
-            <Link to="/blog" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10">
+            <Link reloadDocument to="/blog" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10">
               Mulai Baca Artikel Strategi <PlayCircle className="w-5 h-5" />
             </Link>
           </div>

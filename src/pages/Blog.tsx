@@ -23,7 +23,7 @@ export default function Blog() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articlesData.map((article) => (
-            <Link key={article.id} to={`/blog/${article.id}`} className="group block h-full">
+            <Link reloadDocument key={article.id} to={`/blog/${article.id}`} className="group block h-full">
               <article className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:border-orange-200 h-full flex flex-col overflow-hidden">
                 <div className="w-full h-52 bg-slate-100 overflow-hidden relative">
                   <img src={article.thumbnail} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 font-bold" />

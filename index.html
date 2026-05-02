@@ -32,8 +32,19 @@
     <link rel="apple-touch-icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" />
     <link rel="manifest" href="/manifest.json" />
   </head>
-  <body>
-    <div id="root"></div>
+  <body className="bg-slate-50">
+    <div id="root">
+      <div style="height: 100vh; display: flex; align-items: center; justify-content: center; background: #f8fafc; font-family: sans-serif;">
+        <div style="text-align: center;">
+          <div style="width: 48px; height: 48px; border: 4px solid #ea580c; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+          <p style="color: #64748b; font-weight: 600; font-size: 14px;">DigitalBareng</p>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes spin { to { transform: rotate(360deg); } }
+      body { margin: 0; padding: 0; }
+    </style>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

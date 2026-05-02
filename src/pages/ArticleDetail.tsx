@@ -76,6 +76,7 @@ export default function ArticleDetail() {
       title: 'Artikel tidak ditemukan',
       category: 'ERROR',
       date: '-',
+      description: 'Artikel tidak ditemukan.',
       thumbnail: '',
       htmlContent: '<p>Artikel yang Anda cari tidak ditemukan.</p>'
     };
@@ -91,14 +92,14 @@ export default function ArticleDetail() {
       if (href) {
         if (href.startsWith('/')) {
           e.preventDefault();
-          navigate(href);
+          window.location.href = href;
         } else if (href.includes('digitalbareng.com')) {
           e.preventDefault();
           try {
             const url = new URL(href);
-            navigate(url.pathname);
+            window.location.href = url.pathname;
           } catch {
-            // handle error if needed
+             window.location.href = href;
           }
         }
       }
@@ -114,7 +115,7 @@ export default function ArticleDetail() {
         article={true}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
+        <Link reloadDocument to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Kembali ke Blog</span>
         </Link>

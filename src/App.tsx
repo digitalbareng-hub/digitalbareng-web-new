@@ -26,12 +26,17 @@ import CalendarAssets from './pages/CalendarAssets';
 
 import { HelmetProvider } from 'react-helmet-async';
 import { GeminiKeyProvider } from './contexts/GeminiKeyContext';
+import ScrollToTop from './components/ScrollToTop';
+
+import { AuthProvider } from './contexts/AuthContext';
 
 export default function App() {
   return (
     <HelmetProvider>
-      <GeminiKeyProvider>
-        <BrowserRouter>
+      <AuthProvider>
+        <GeminiKeyProvider>
+          <BrowserRouter>
+          <ScrollToTop />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -54,6 +59,7 @@ export default function App() {
           <Footer />
         </BrowserRouter>
       </GeminiKeyProvider>
+      </AuthProvider>
     </HelmetProvider>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Search, Filter } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -62,10 +62,11 @@ export default function CalendarAssets() {
 
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
-      <Helmet>
-        <title>Calendar Event Microstock Dunia - Strategi Konten | Digital Bareng</title>
-        <meta name="description" content="Daftar lengkap hari besar dan event penting dunia sebagai referensi pembuatan aset microstock musiman yang menguntungkan." />
-      </Helmet>
+      <SEO 
+        title="Calendar Event Microstock Dunia - Strategi Konten | Digital Bareng"
+        description="Daftar lengkap hari besar dan event penting dunia sebagai referensi pembuatan aset microstock musiman yang menguntungkan."
+        keywords="calendar microstock, event dunia, seasonal assets, hari besar internasional"
+      />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
           <div className="flex items-center gap-4 mb-2">
