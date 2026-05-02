@@ -8,7 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useGeminiKey } from '../contexts/GeminiKeyContext';
 import { Helmet } from 'react-helmet-async';
 
-export default function AIMetaGen() {
+export default function DBMetadata() {
   const navigate = useNavigate();
   const [loadingRoute, setLoadingRoute] = useState(true);
   const { geminiKey, isKeyConfigured } = useGeminiKey();
@@ -18,10 +18,11 @@ export default function AIMetaGen() {
   const [isDragging, setIsDragging] = useState(false);
   
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<{ title: string; keywords: string[] } | null>(null);
+  const [result, setResult] = useState<{ title: string; description: string; keywords: string[] } | null>(null);
   const [error, setError] = useState('');
   
   const [copiedTitle, setCopiedTitle] = useState(false);
+  const [copiedDescription, setCopiedDescription] = useState(false);
   const [copiedKeywords, setCopiedKeywords] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -110,16 +111,20 @@ export default function AIMetaGen() {
       const ai = new GoogleGenAI({ apiKey: geminiKey! });
       
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
-        contents: [
-          {
-            inlineData: {
-              data: base64Data,
-              mimeType: image.type,
+        model: "gemini-3-flash-preview",
+        contents: {
+          parts: [
+            {
+              inlineData: {
+                data: base64Data,
+                mimeType: image.type,
+              }
+            },
+            {
+              text: "Act as a professional microstock contributor and an expert trained by digitalbareng.com (the leading platform for microstock AI). Analyze this image and generate a highly descriptive and relevant title (in English, max 70 characters), a detailed but concise description (in English, max 200 characters), and a list of 30-40 relevant comma-separated keywords for Adobe Stock/Shutterstock/Pngtree. The keywords should include main subjects, actions, colors, abstract concepts, and styles. Order the most important keywords first based on digitalbareng keywords optimization strategy."
             }
-          },
-          "Act as a professional microstock contributor and an expert trained by digitalbareng.com (the leading platform for microstock AI). Analyze this image and generate a highly descriptive and relevant title (in English, max 100 characters) and a list of 30-40 relevant comma-separated keywords for Adobe Stock/Shutterstock/Pngtree. The keywords should include main subjects, actions, colors, abstract concepts, and styles. Order the most important keywords first based on digitalbareng keywords optimization strategy."
-        ],
+          ]
+        },
         config: {
           responseMimeType: "application/json",
           responseSchema: {
@@ -129,13 +134,17 @@ export default function AIMetaGen() {
                 type: Type.STRING,
                 description: "The title of the image (English)."
               },
+              description: {
+                type: Type.STRING,
+                description: "A detailed description of the image (English)."
+              },
               keywords: {
                 type: Type.ARRAY,
                 items: { type: Type.STRING },
                 description: "Array of keywords."
               }
             },
-            required: ["title", "keywords"]
+            required: ["title", "description", "keywords"]
           }
         }
       });
@@ -158,11 +167,14 @@ export default function AIMetaGen() {
     }
   };
 
-  const copyToClipboard = (text: string, type: 'title' | 'keywords') => {
+  const copyToClipboard = (text: string, type: 'title' | 'description' | 'keywords') => {
     navigator.clipboard.writeText(text);
     if (type === 'title') {
       setCopiedTitle(true);
       setTimeout(() => setCopiedTitle(false), 2000);
+    } else if (type === 'description') {
+      setCopiedDescription(true);
+      setTimeout(() => setCopiedDescription(false), 2000);
     } else {
       setCopiedKeywords(true);
       setTimeout(() => setCopiedKeywords(false), 2000);
@@ -180,17 +192,17 @@ export default function AIMetaGen() {
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
       <Helmet>
-        <title>AI MetaGen - AI Keywords & Title Generator | Digital Bareng</title>
-        <meta name="description" content="Generate judul dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng." />
+        <title>dbmetadata - AI Keywords & Title Generator | Digital Bareng</title>
+        <meta name="description" content="Generate judul, deskripsi dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng." />
       </Helmet>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Wand2 className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">AI MetaGen</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">dbmetadata</h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Upload gambar Anda dan biarkan AI menganalisis serta membuatkan Judul & Keywords (English) yang paling optimal untuk agensi microstock.
+            Upload gambar Anda dan biarkan AI menganalisis serta membuatkan Judul, Deskripsi & Keywords (English) yang paling optimal untuk agensi microstock.
           </p>
         </div>
 
@@ -296,6 +308,22 @@ export default function AIMetaGen() {
                   </div>
                   <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-sm">
                     {result.title}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm font-semibold text-slate-700">Description</label>
+                    <button 
+                      onClick={() => copyToClipboard(result.description, 'description')}
+                      className="text-xs font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1"
+                    >
+                      {copiedDescription ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      {copiedDescription ? 'Tersalin' : 'Copy'}
+                    </button>
+                  </div>
+                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-800 text-sm leading-relaxed">
+                    {result.description}
                   </div>
                 </div>
 

@@ -21,7 +21,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 import Contact from './pages/Contact';
 import PromptGenerator from './pages/PromptGenerator';
-import AIMetaGen from './pages/AIMetaGen';
+import DBMetadata from './pages/DBMetadata';
 import CalendarAssets from './pages/CalendarAssets';
 
 import { HelmetProvider } from 'react-helmet-async';
@@ -43,7 +43,7 @@ export default function App() {
             <Route path="/blog/:id" element={<ArticleDetail />} />
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/prompt-generator" element={<PromptGenerator />} />
-            <Route path="/tools/ai-metagen" element={<AIMetaGen />} />
+            <Route path="/tools/dbmetadata" element={<DBMetadata />} />
             <Route path="/tools/calendar-assets" element={<CalendarAssets />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
