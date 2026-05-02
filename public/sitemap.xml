@@ -61,13 +61,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://digitalbareng.com/privacy</loc>
+    <loc>https://digitalbareng.com/privacy-policy</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://digitalbareng.com/terms</loc>
+    <loc>https://digitalbareng.com/terms-of-use</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Wand2, Clapperboard, Bot, CalendarDays, Search, Palette, Layers, Box, Zap, Sparkles, ExternalLink, Database } from 'lucide-react';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 export default function Tools() {
   const navigate = useNavigate();
@@ -186,10 +186,11 @@ export default function Tools() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans pt-32 pb-24">
-      <Helmet>
-        <title>Professional Hub Tools Microstock AI | Digital Bareng</title>
-        <meta name="description" content="Kumpulan tools premium dan gratis untuk meningkatkan produktivitas kreator microstock AI. Mulai dari generator metadata hingga riset pasar." />
-      </Helmet>
+      <SEO 
+        title="Professional Hub Tools Microstock AI | Digital Bareng"
+        description="Kumpulan tools premium dan gratis untuk meningkatkan produktivitas kreator microstock AI. Mulai dari generator metadata hingga riset pasar."
+        keywords="tools microstock, ai generator, data riset microstock, vector lexicon"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-20 text-center">
           <p className="text-orange-600 font-bold uppercase tracking-widest text-xs mb-4">Digital Bareng Ecosystem</p>

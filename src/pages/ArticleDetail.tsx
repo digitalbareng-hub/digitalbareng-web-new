@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { articlesData } from '../lib/articles';
 
 export default function ArticleDetail() {
@@ -107,10 +107,12 @@ export default function ArticleDetail() {
 
   return (
     <div className="min-h-screen bg-white font-sans pt-12">
-      <Helmet>
-        <title>{article.title} | Digital Bareng</title>
-        <meta name="description" content={article.title} />
-      </Helmet>
+      <SEO 
+        title={`${article.title} | Digital Bareng`}
+        description={article.description}
+        image={article.thumbnail}
+        article={true}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />

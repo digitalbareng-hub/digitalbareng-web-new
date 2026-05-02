@@ -5,7 +5,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { articlesData } from '../lib/articles';
 
 export default function Home() {
@@ -64,11 +64,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans">
-      <Helmet>
-        <title>Digital Bareng - Hub Microstock AI & Tools Kreator Terlengkap</title>
-        <meta name="description" content="Pelajari strategi microstock AI, gunakan tools otomatis untuk Adobe Stock & Pngtree, dan mulai hasilkan income online dari rumah bersama Digital Bareng." />
-        <meta name="keywords" content="microstock AI, digital bareng, belajar microstock, tools AI kreator, penghasilan tambahan online" />
-      </Helmet>
+      <SEO 
+        title="Digital Bareng - Hub Microstock AI & Tools Kreator Terlengkap"
+        description="Pelajari strategi microstock AI, gunakan tools otomatis untuk Adobe Stock & Pngtree, dan mulai hasilkan income online dari rumah bersama Digital Bareng."
+        keywords="microstock AI, digital bareng, belajar microstock, tools AI kreator, penghasilan tambahan online"
+      />
       {/* Hero Section */}
       <section className="py-20 text-center relative overflow-hidden">
         {/* Floating Flat Gradient Icons */}

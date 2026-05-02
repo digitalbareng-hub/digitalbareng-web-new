@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen, PenTool, Image, Sparkles } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { articlesData } from '../lib/articles';
 
 export default function Blog() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans pt-12">
-      <Helmet>
-        <title>Blog Microstock AI - Strategi & Tutorial Terbaru | Digital Bareng</title>
-        <meta name="description" content="Kumpulan artikel strategi microstock AI, tutorial, dan tips menghasilkan Dollar dari internet. Temukan insight terbaru hanya di Digital Bareng." />
-      </Helmet>
+      <SEO 
+        title="Blog Microstock AI - Strategi & Tutorial Terbaru | Digital Bareng"
+        description="Kumpulan artikel strategi microstock AI, tutorial, dan tips menghasilkan Dollar dari internet. Temukan insight terbaru hanya di Digital Bareng."
+        keywords="blog microstock, tutorial adobe stock, trik pngtree, ai microstock strategy"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 text-center">
           <div className="inline-block mb-3 px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase">INSIGHT & STRATEGY</div>

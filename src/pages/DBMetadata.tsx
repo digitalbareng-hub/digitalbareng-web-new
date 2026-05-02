@@ -6,7 +6,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useGeminiKey } from '../contexts/GeminiKeyContext';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 
 export default function DBMetadata() {
   const navigate = useNavigate();
@@ -191,10 +191,11 @@ export default function DBMetadata() {
 
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
-      <Helmet>
-        <title>dbmetadata - AI Keywords & Title Generator | Digital Bareng</title>
-        <meta name="description" content="Generate judul, deskripsi dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng." />
-      </Helmet>
+      <SEO 
+        title="dbmetadata - AI Keywords & Title Generator | Digital Bareng"
+        description="Generate judul, deskripsi dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng."
+        keywords="ai metagen, keywords generator, microstock metadata, adobe stock keywords, pngtree keywords"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
