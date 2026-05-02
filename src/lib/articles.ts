@@ -1,5 +1,13 @@
 export const articlesData = [
   {
+    id: 'panduan-lengkap-cara-mendaftar-menjadi-adobe-stock-contributor',
+    title: 'Panduan Lengkap Cara Mendaftar Menjadi Adobe Stock Contributor (Langkah Demi Langkah)',
+    category: 'PANDUAN',
+    date: '02 Mei 2026',
+    description: 'Panduan lengkap cara mendaftar menjadi Adobe Stock Contributor dari nol hingga siap mengunggah karya pertama Anda.',
+    thumbnail: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtPAKdTeYrzldVZVb4ci9pGO6hQy32cqC8lvEKlIFhjcK1LCikWzK5mp5Mq6A803G-PDEYrJRA3U_mj0-dViTz7JL32JdRkR2ha6ZSb7gtiFHcOt2bvqzcb9_2hlSdz93C5zlWNSze8weqYtcQNYDrhPXSGY4QSFLjI1Ut8odGMhEWzM3qsW9wRwBqDSo/w640-h426/CONTRIBUTOR%20ADOBE%20STOCK.png'
+  },
+  {
     id: 'panduan-fundamental-microstock-ai',
     title: 'Panduan Fundamental Meraup Dollar dari Microstock: Peluang Baru di Era AI',
     category: 'PANDUAN',

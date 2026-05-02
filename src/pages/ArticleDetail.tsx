@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck } from 'lucide-react';
 import { articlesData } from '../lib/articles';
 
 export default function ArticleDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [isSaved, setIsSaved] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -60,6 +61,16 @@ export default function ArticleDetail() {
       };
     }
     
+    if (id === 'panduan-lengkap-cara-mendaftar-menjadi-adobe-stock-contributor') {
+      return {
+        ...defaultData!,
+        htmlContent: `
+          <p>Setelah memahami dasar-dasar <a href="/blog/panduan-fundamental-microstock-ai">fundamental microstock</a> sebelumnya dan mengetahui aturan main seputar aset AI, langkah selanjutnya adalah mulai terjun ke medan pertempuran. Saat ini, tidak ada platform yang lebih menjanjikan dan ramah kreator (termasuk kreator AI) selain Adobe Stock.</p><p>Menjadi kontributor di Adobe Stock berarti Anda memajang karya langsung di hadapan jutaan pengguna <i>software</i> Adobe (seperti Photoshop dan Illustrator) di seluruh dunia. Peluang untuk mendapatkan penghasilan pasif dalam kurs Dolar (USD) sangatlah terbuka lebar.</p><p>Bagi pemula, proses pendaftaran mungkin terlihat membingungkan. Jangan khawatir! Berikut adalah panduan lengkap cara mendaftar menjadi Adobe Stock Contributor dari nol hingga siap mengunggah karya pertama Anda.</p><h3>Syarat Utama Sebelum Mendaftar</h3><p>Sebelum membuka <i>browser</i>, pastikan Anda sudah memenuhi dan menyiapkan tiga hal dasar ini:</p><ol start="1"><li><p><b>Berusia Minimal 18 Tahun:</b> Anda harus sudah cukup umur secara hukum untuk menyetujui kontrak kerja sama.</p></li><li><p><b>Identitas Resmi (ID):</b> Siapkan KTP, SIM, atau Paspor. Adobe mungkin akan memintanya sewaktu-waktu untuk memverifikasi identitas Anda jika diperlukan.</p></li><li><p><b>Karya Orisinal &amp; Kepatuhan Prompt AI:</b> Anda harus memiliki hak cipta penuh. Jika menggunakan AI, pastikan platform yang Anda gunakan memberikan hak komersial. <b>Penting:</b> Adobe melarang keras penggunaan <i>prompt</i> yang mengandung nama artis, tokoh terkenal, karakter fiksi (seperti karakter komik/film), atau merek dagang (<i>trademark</i>).</p></li></ol><h3>Langkah-Langkah Mendaftar Adobe Stock Contributor</h3><p>Proses pendaftarannya 100% gratis. Ikuti panduan praktis ini:</p><p><b>Langkah 1: Kunjungi Portal Kontributor</b><br/>Buka <i>browser</i> Anda dan kunjungi situs web resmi khusus kontributor di: <a href="https://contributor.stock.adobe.com/" target="_blank" rel="noopener noreferrer">contributor.stock.adobe.com</a>. Klik tombol <b>"Get Started"</b> atau <b>"Join Now"</b>.</p><div class="flex justify-center my-6"><img class="rounded-xl shadow-sm border border-slate-200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjN8qHTZHukC0Yf2pkfeibLEp2cs5bH3nhYLqHCTjJpH45M4SaIAvwWbtgtQAuUhM68O70HCNZMOllGVr7tOjBU5Tf7DDaArY0ZJcbBYNLSqjWhqqQReFn6afE9pzMxpO9D28d7ZgKQ0afrPe9d_tXm6wcJNX5-zp7Iq08hjhggI9lVbftoz2k5nlQLlU/w640-h286/Screenshot%202026-05-02%20184419.jpg" alt="Get Started Adobe Stock" /></div><p><b>Langkah 2: Buat atau Gunakan Adobe ID</b></p><ul><li><p><b>Jika Anda belum punya akun:</b> Klik “Create an account” (Buat akun). Anda bisa mendaftar menggunakan email pribadi, akun Google, Facebook, atau Apple. Isi nama, tanggal lahir, dan negara asal Anda dengan jujur dan sesuai KTP.</p></li><li><p><b>Jika Anda sudah punya akun:</b> Misalnya Anda pernah berlangganan Photoshop atau Lightroom, Anda bisa langsung <i>Sign In</i> menggunakan Adobe ID yang sudah ada.</p></li></ul><div class="flex justify-center my-6"><img class="rounded-xl shadow-sm border border-slate-200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX8ortfkpQHwr4QoYfJiTkm8Y5HlTML53vCCQxTa509AWcjCQp8nHtgifEpYFG-dO711GazMs9kSZ2RTFId6Pbi70kWF5H_pOGmWCe9T1uZFUjz8GsOcsIOu1UD5GbZxzR3Xz7uhe8Shg4THdzeRbFSotlklCSIgGXLOd9lZAayqkyTRqpqWixckXqARI/w640-h284/Screenshot%202026-05-02%20184527.jpg" alt="Sign in to Adobe" /></div><p><b>Langkah 3: Konfirmasi Email</b><br/>Setelah mendaftar, periksa kotak masuk (<i>inbox</i>) email Anda. Adobe akan mengirimkan tautan verifikasi. Klik tautan tersebut untuk mengaktifkan akun Anda secara penuh.</p><p><b>Langkah 4: Setujui Perjanjian Kontributor (Contributor Agreement)</b><br/>Setelah berhasil <i>login</i> ke Dasbor Kontributor, Anda akan disajikan dokumen persyaratan layanan. Dokumen ini berisi aturan tentang hak cipta, royalti, dan kebijakan pengunggahan. Baca dan pahami poin utamanya, lalu klik <b>"Accept"</b> (Setuju).</p><p>Jika mengalami kesulitan saat verifikasi nomor Handphone pakai cara ini:<br/></p><h4>Add Mobile Phone Number via Adobe Account Access</h4><p><a href="https://play.google.com/store/apps/details?id=com.adobe.ims.accountaccess&amp;hl=en&amp;pli=1" target="_blank" rel="noopener noreferrer">https://play.google.com/store/apps/details?id=com.adobe.ims.accountaccess&hl=en&pli=1</a></p><p>Login menggunakan akun yang sudah di daftarkan, kemudian Tambahkan No. Handphone.</p><p>Selamat! Sampai di sini, Anda sudah resmi menjadi Adobe Stock Contributor dan bisa melihat Dasbor utama Anda.</p><div class="flex justify-center my-6"><img class="rounded-xl shadow-sm border border-slate-200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjCGth5rqdgCZQkugNGrF9B9794eDAQeZd9dQSXIjZ4-fjPdAxxx9Voqb_t3sbkjmUCfUk5Ouw7XsMxrvEGt-IAHhYIawiXR8AkXkmnhwW4Xf6wCzJ5pE7fKmVECTRQiOugkmSIeZX3fwMQ8y1aJziKcDkY2plqIe-IMf8dcrStsPPjXFKVLEKIcYGhej0/w640-h270/image.webp" alt="Dashboard" /></div><h3>⚠️ Langkah Ekstra yang SANGAT Penting (Jangan Dilewati!)</h3><p>Banyak pemula yang langsung mengunggah gambar setelah akun jadi, padahal ada dua pengaturan krusial yang harus segera diselesaikan agar komisi Dolar Anda aman dan tidak terkena potongan besar.</p><p><b>1. Mengisi Formulir Pajak (Tax Form)</b><br/>Karena Adobe adalah perusahaan Amerika Serikat (AS), mereka diwajibkan memotong pajak dari penghasilan Anda.</p><ul><li><p>Masuk ke menu <b>Contributor Account</b> (Akun Kontributor).</p></li><li><p>Cari bagian <b>Tax Information</b> (Informasi Pajak).</p></li><li><p>Pilih formulir <b>W-8BEN</b> (ini adalah formulir khusus untuk individu <i>non-US Resident</i> atau warga negara selain Amerika Serikat, seperti Indonesia).</p></li><li><p>Isi formulir tersebut secara digital dengan nama asli dan alamat lengkap Anda. Mengisi formulir ini akan menyelamatkan Anda dari potongan pajak maksimal (30%) dari pemerintah AS. Indonesia memiliki perjanjian pajak (<i>Tax Treaty</i>) dengan AS, sehingga potongannya akan diturunkan menjadi hanya sekitar 10%.</p></li></ul><p><b>2. Menyiapkan Metode Pembayaran</b><br/>Bagaimana Adobe mentransfer Dolar ke rekening Anda? Di bagian akun, pastikan Anda mengetahui opsi pembayaran yang didukung. Saat ini, Adobe Stock mendukung tiga layanan:</p><ul><li><p><b>Payoneer</b></p></li><li><p><b>PayPal</b></p></li><li><p><b>Skrill</b></p></li></ul><p><i>(Catatan: Anda baru bisa menghubungkan akun pencairan ini dan menarik uang setelah total komisi Anda mencapai batas minimal/payout threshold sebesar <b>$25</b>).</i></p><h3>Tips Sukses Mengunggah Karya Pertama Anda (Sesuai Aturan Terbaru)</h3><p>Sekarang akun Anda sudah siap tempur! Saat mengunggah karya, terutama hasil <i>Generative AI</i>, Anda wajib mematuhi aturan teknis terbaru dari Adobe berikut ini:</p><ul><li><p><b>Format dan Resolusi yang Tepat:</b> Gunakan format <b>JPEG</b>. Resolusi gambar harus minimal <b>4 Megapixels</b> dan maksimal <b>100 Megapixels</b>. Ukuran file (size) maksimal tidak boleh lebih dari <b>45 Megabytes</b> (MB).</p></li><li><p><b>Klasifikasi Jenis Aset:</b> Jika gambar AI Anda terlihat sangat realistis seperti hasil jepretan kamera, pilih tipe aset <b>"Photos"</b>. Namun, jika bergaya kartun, <i>3D Pixar-style</i>, <i>minimalist Swiss-inspired layouts</i>, vektor, atau seni digital lainnya, Anda wajib memilih tipe aset <b>"Illustrations"</b>.</p></li><li><p><b>Kejujuran AI (Sangat Wajib):</b> Anda <b>WAJIB</b> mencentang opsi <i>"Created using generative AI tools"</i> di panel sebelah kanan.</p></li><li><p><b>Aturan Wajah Fiktif:</b> Jika gambar AI Anda menampilkan wajah manusia fotorealistik yang tidak didasarkan pada orang sungguhan, Anda harus mencentang kotak tambahan <i>"People and Property are fictional"</i>.</p></li><li><p><b>Kebersihan Presentasi Visual:</b> Sebelum diunggah, pastikan gambar bersih dari elemen latar belakang yang mengganggu. Sangat penting untuk menghapus <i>watermark</i> atau teks-teks acak yang sering muncul cacat dari generator AI. Karya dengan artefak berantakan akan otomatis ditolak (di-<i>reject</i>) oleh tim peninjau Adobe demi menjaga profesionalitas katalog mereka.</p></li><li><p><b>Maksimalkan Metadata:</b> Tulis judul dalam bahasa Inggris dan maksimalkan 49&nbsp;<i>keywords</i> (kata kunci). Jangan pernah memasukkan nama <i>brand</i> atau seniman terkenal di judul maupun <i>keyword</i> Anda!</p></li></ul><div class="flex justify-center my-6"><img class="rounded-xl shadow-sm border border-slate-200" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhUJsZoY1CpoPLLExw9qyfWA9-wD8hNHKAwGOv8llkbsjKQpz1vPbFnDOqCxxtztD1KU7WBQCxDZ2RZYh2vUFx0QO5B2ESuHgTdazFBu6xWOR0CSxFa2Zzrdfgvr3cANKSypBCH1hwjFAOGDIPtnowFFRO5EeT2tfKS1Ac0bWoxu3W57cTAU_9Lvu-aLf4/w566-h640/Screenshot%202026-05-02%20185906.jpg" alt="Metadata" /></div><p>Proses peninjauan (<i>review</i>) di Adobe Stock biasanya memakan waktu beberapa hari hingga beberapa minggu, tergantung antrean. Tetaplah bersabar, jaga kualitas visual Anda, dan teruslah berkarya selagi menunggu hasilnya!</p>
+        `
+      };
+    }
+
+    
     return {
       title: 'Artikel tidak ditemukan',
       category: 'ERROR',
@@ -70,6 +81,28 @@ export default function ArticleDetail() {
   };
 
   const article = getArticleData(id);
+
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    const anchor = target.closest('a');
+    if (anchor) {
+      const href = anchor.getAttribute('href');
+      if (href) {
+        if (href.startsWith('/')) {
+          e.preventDefault();
+          navigate(href);
+        } else if (href.includes('digitalbareng.com')) {
+          e.preventDefault();
+          try {
+            const url = new URL(href);
+            navigate(url.pathname);
+          } catch {
+            // handle error if needed
+          }
+        }
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white font-sans">
@@ -117,6 +150,7 @@ export default function ArticleDetail() {
 
           <div 
             className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-2xl" 
+            onClick={handleContentClick}
             dangerouslySetInnerHTML={{ __html: article.htmlContent }} 
           />
 
