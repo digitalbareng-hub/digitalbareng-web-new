@@ -21,6 +21,11 @@ export default function Profile() {
     if (!loading && !user) {
       navigate('/login');
     }
+    // Sync auth state refresh for profile
+    const refreshInterval = setInterval(() => {
+      if (user) user.reload();
+    }, 5000);
+    return () => clearInterval(refreshInterval);
   }, [user, loading, navigate]);
 
   const handleLogout = async () => {

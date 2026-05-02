@@ -10,6 +10,9 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Middleware untuk melayani file statis dari folder public di root
+  app.use(express.static(path.join(__dirname, 'public')));
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -18,7 +21,7 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
+    const distPath = path.resolve(__dirname, 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
@@ -26,8 +29,8 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log(`Configured for SPA fallback to fix Search Console 404s`);
+    console.log(`Server running at http://0.0.0.0:${PORT}`);
+    console.log(`SPA Fallback & Search Console Fix Active`);
   });
 }
 
