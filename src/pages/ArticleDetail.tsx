@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck } from 'lucide-react';
 import { articlesData } from '../lib/articles';
-import { Comments } from '../components/Comments';
 
 export default function ArticleDetail() {
   const { id } = useParams();
@@ -136,7 +135,6 @@ export default function ArticleDetail() {
               <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">AI Art</span>
             </div>
           </div>
-          <Comments articleId={article.id} />
         </article>
       </div>
 
