@@ -1,13 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, Loader2, Image as ImageIcon, X, Copy, Check } from 'lucide-react';
+import { Upload, Loader2, Image as ImageIcon, X, Copy, Check, Key, AlertCircle, Wand2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { GoogleGenAI, Type } from '@google/genai';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useGeminiKey } from '../contexts/GeminiKeyContext';
+import { Helmet } from 'react-helmet-async';
 
 export default function AIMetaGen() {
   const navigate = useNavigate();
   const [loadingRoute, setLoadingRoute] = useState(true);
+  const { geminiKey, isKeyConfigured } = useGeminiKey();
 
   const [image, setImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -93,16 +97,20 @@ export default function AIMetaGen() {
 
   const generateMetadata = async () => {
     if (!image) return;
+    if (!isKeyConfigured) {
+      setError('Silakan masukkan Gemini API Key di halaman Profil Anda terlebih dahulu.');
+      return;
+    }
     
     setIsLoading(true);
     setError('');
     
     try {
       const base64Data = await fileToBase64(image);
-      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ apiKey: geminiKey! });
       
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-1.5-flash",
         contents: [
           {
             inlineData: {
@@ -110,7 +118,7 @@ export default function AIMetaGen() {
               mimeType: image.type,
             }
           },
-          "Act as a professional microstock contributor. Analyze this image and generate a highly descriptive and relevant title (in English, max 100 characters) and a list of 30-40 relevant comma-separated keywords for Adobe Stock/Shutterstock. The keywords should include main subjects, actions, colors, abstract concepts, and styles. Order the most important keywords first."
+          "Act as a professional microstock contributor and an expert trained by digitalbareng.com (the leading platform for microstock AI). Analyze this image and generate a highly descriptive and relevant title (in English, max 100 characters) and a list of 30-40 relevant comma-separated keywords for Adobe Stock/Shutterstock/Pngtree. The keywords should include main subjects, actions, colors, abstract concepts, and styles. Order the most important keywords first based on digitalbareng keywords optimization strategy."
         ],
         config: {
           responseMimeType: "application/json",
@@ -140,7 +148,11 @@ export default function AIMetaGen() {
       }
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Terjadi kesalahan saat memproses gambar.');
+      if (err.message?.includes('API key not valid')) {
+        setError('API Key Gemini tidak valid. Periksa kembali di halaman Profil.');
+      } else {
+        setError(err.message || 'Terjadi kesalahan saat memproses gambar.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -160,23 +172,45 @@ export default function AIMetaGen() {
   if (loadingRoute) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
+        <div className="animate-spin w-8 h-8 border-4 border-orange-600 border-t-transparent rounded-full"></div>
       </div>
     );
   }
 
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
+      <Helmet>
+        <title>AI MetaGen - AI Keywords & Title Generator | Digital Bareng</title>
+        <meta name="description" content="Generate judul dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng." />
+      </Helmet>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Upload className="w-8 h-8" />
+          <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Wand2 className="w-8 h-8" />
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">AI MetaGen</h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Upload gambar Anda dan biarkan AI menganalisis serta membuatkan Judul & Keywords (English) yang paling optimal untuk agensi microstock.
           </p>
         </div>
+
+        {!isKeyConfigured && (
+          <div className="mb-8 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left transition-all hover:shadow-md">
+            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center shrink-0">
+              <Key className="w-6 h-6 text-amber-600" />
+            </div>
+            <div className="flex-grow">
+              <h3 className="font-bold text-amber-900">API Key Belum Dikonfigurasi</h3>
+              <p className="text-sm text-amber-800">Anda perlu memasukkan Gemini API Key di profil Anda untuk menggunakan alat ini secara gratis.</p>
+            </div>
+            <Link 
+              to="/profile" 
+              className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-sm transition-colors shrink-0"
+            >
+              Set Sekarang
+            </Link>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Upload Area */}
@@ -221,9 +255,9 @@ export default function AIMetaGen() {
             <button
               onClick={generateMetadata}
               disabled={!image || isLoading}
-              className="mt-6 w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+              className="mt-6 w-full py-3 px-4 bg-orange-600 hover:bg-orange-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-orange-100"
             >
-              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Wand2 className="w-5 h-5" />}
               {isLoading ? 'Menganalisis Gambar...' : 'Generate Metadata'}
             </button>
 
@@ -242,7 +276,7 @@ export default function AIMetaGen() {
 
             {isLoading && (
               <div className="h-[200px] flex flex-col items-center justify-center text-slate-500 gap-3">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
                 <p className="animate-pulse text-sm">Menghubungkan ke Gemini Vision...</p>
               </div>
             )}
@@ -254,7 +288,7 @@ export default function AIMetaGen() {
                     <label className="text-sm font-semibold text-slate-700">Judul (Title)</label>
                     <button 
                       onClick={() => copyToClipboard(result.title, 'title')}
-                      className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                      className="text-xs font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1"
                     >
                       {copiedTitle ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                       {copiedTitle ? 'Tersalin' : 'Copy'}
@@ -270,7 +304,7 @@ export default function AIMetaGen() {
                     <label className="text-sm font-semibold text-slate-700">Keywords (Koma Dipisah)</label>
                     <button 
                       onClick={() => copyToClipboard(result.keywords.join(', '), 'keywords')}
-                      className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                      className="text-xs font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1"
                     >
                       {copiedKeywords ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                       {copiedKeywords ? 'Tersalin' : 'Copy Semua'}

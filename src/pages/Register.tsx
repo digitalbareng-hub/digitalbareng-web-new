@@ -52,7 +52,7 @@ export default function Register() {
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center -mb-4">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/20 overflow-hidden">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-600/20 overflow-hidden">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" alt="DigitalBareng Logo" className="w-full h-full object-cover" />
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Register() {
         </h2>
         <p className="mt-2 text-center text-sm text-slate-600">
           Sudah punya akun?{' '}
-          <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link to="/login" className="font-medium text-orange-600 hover:text-orange-500">
             Masuk di sini
           </Link>
         </p>
@@ -76,7 +76,7 @@ export default function Register() {
               </div>
               <h3 className="text-lg font-medium text-slate-900 mb-2">Pendaftaran Berhasil!</h3>
               <p className="text-slate-600 mb-6">Kami telah mengirimkan tautan verifikasi ke <strong>{email}</strong>. Silakan periksa kotak masuk atau folder spam Anda untuk memverifikasi akun.</p>
-              <Link to="/profile" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+              <Link to="/profile" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">
                 Lanjut ke Profil
               </Link>
             </div>
@@ -97,7 +97,7 @@ export default function Register() {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="block w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
+                      className="block w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-orange-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
                       placeholder="John Doe"
                     />
                   </div>
@@ -114,7 +114,7 @@ export default function Register() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
+                      className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-orange-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
                       placeholder="anda@email.com"
                     />
                   </div>
@@ -131,7 +131,7 @@ export default function Register() {
                       required
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
+                      className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-orange-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
                       placeholder="Minimal 6 karakter"
                       minLength={6}
                     />
@@ -143,7 +143,7 @@ export default function Register() {
                   </div>
 
                   <div className="text-sm">
-                    <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                    <Link to="/forgot-password" className="font-medium text-orange-600 hover:text-orange-500">
                       Lupa password?
                     </Link>
                   </div>
@@ -153,7 +153,7 @@ export default function Register() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 transition-colors"
+                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:bg-orange-400 transition-colors"
                   >
                     {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Daftar Sekarang'}
                   </button>
@@ -173,7 +173,7 @@ export default function Register() {
                 <div className="mt-6">
                   <button
                     onClick={handleGoogleLogin}
-                    className="w-full inline-flex justify-center py-3 px-4 border border-slate-200 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors gap-2 items-center"
+                    className="w-full inline-flex justify-center py-3 px-4 border border-slate-200 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors gap-2 items-center"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>

@@ -20,17 +20,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4 text-slate-900">Eksplor</h4>
             <ul className="space-y-2 text-sm text-slate-500">
-              <li><Link to="/guide" className="hover:text-blue-600 transition-colors">Start Here (Guide)</Link></li>
-              <li><Link to="/blog" className="hover:text-blue-600 transition-colors">Artikel Terbaru</Link></li>
-              <li><Link to="/tools" className="hover:text-blue-600 transition-colors">Rekomendasi Tools</Link></li>
-              <li><Link to="/contact" className="hover:text-blue-600 transition-colors">Kontak</Link></li>
+              <li><Link to="/guide" className="hover:text-orange-600 transition-colors">Start Here (Guide)</Link></li>
+              <li><Link to="/blog" className="hover:text-orange-600 transition-colors">Artikel Terbaru</Link></li>
+              <li><Link to="/tools" className="hover:text-orange-600 transition-colors">Rekomendasi Tools</Link></li>
+              <li><Link to="/contact" className="hover:text-orange-600 transition-colors">Kontak</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4 text-slate-900">Legal</h4>
             <ul className="space-y-2 text-sm text-slate-500">
-              <li><Link to="/privacy-policy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms-of-use" className="hover:text-blue-600 transition-colors">Terms of Use</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-orange-600 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms-of-use" className="hover:text-orange-600 transition-colors">Terms of Use</Link></li>
             </ul>
           </div>
         </div>

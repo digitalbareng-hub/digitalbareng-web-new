@@ -5,6 +5,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { Helmet } from 'react-helmet-async';
 import { articlesData } from '../lib/articles';
 
 export default function Home() {
@@ -63,11 +64,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans">
+      <Helmet>
+        <title>Digital Bareng - Hub Microstock AI & Tools Kreator Terlengkap</title>
+        <meta name="description" content="Pelajari strategi microstock AI, gunakan tools otomatis untuk Adobe Stock & Pngtree, dan mulai hasilkan income online dari rumah bersama Digital Bareng." />
+        <meta name="keywords" content="microstock AI, digital bareng, belajar microstock, tools AI kreator, penghasilan tambahan online" />
+      </Helmet>
       {/* Hero Section */}
       <section className="py-20 text-center relative overflow-hidden">
         {/* Floating Flat Gradient Icons */}
         <motion.div
-          className="absolute top-0 left-0 md:left-10 w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20 z-0"
+          className="absolute top-0 left-0 md:left-10 w-16 h-16 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/20 z-0"
           animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -75,7 +81,7 @@ export default function Home() {
         </motion.div>
         
         <motion.div
-          className="absolute bottom-0 right-0 md:right-10 w-20 h-20 md:w-28 md:h-28 rounded-[2rem] bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 z-0"
+          className="absolute bottom-0 right-0 md:right-10 w-20 h-20 md:w-28 md:h-28 rounded-[2rem] bg-gradient-to-tr from-orange-400 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20 z-0"
           animate={{ y: [0, 20, 0], rotate: [0, -5, 5, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
@@ -91,7 +97,7 @@ export default function Home() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-20 left-5 md:left-24 w-14 h-14 md:w-20 md:h-20 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20 hidden sm:flex z-0"
+          className="absolute bottom-20 left-5 md:left-24 w-14 h-14 md:w-20 md:h-20 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center shadow-lg shadow-slate-900/20 hidden sm:flex z-0"
           animate={{ y: [0, 15, 0], rotate: [0, 10, -10, 0] }}
           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
         >
@@ -100,18 +106,18 @@ export default function Home() {
 
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-sm font-semibold tracking-wide shadow-sm">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">MICROSTOCK AI & INCOME GUIDE</span>
+          <div className="inline-block mb-6 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-sm font-bold tracking-wide shadow-sm">
+            <span className="text-orange-600">DIGITALBARENG: PELOPOR MICROSTOCK AI</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
             Microstock AI: <br className="hidden md:block" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Bangun Income Online dari Nol</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-orange-500">Bangun Passive Income Online</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Pelajari microstock AI, tools berbasis kecerdasan buatan, dan strategi income digital berdasarkan pengalaman nyata. Tanpa overclaim, murni praktik.
+            Digital Bareng adalah hub edukasi microstock AI terbaik. Dapatkan panduan eksklusif, tools AI otomatis, dan strategi rahasia meraup Dollar dari internet.
           </p>
-          <Link to="/guide" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40 hover:-translate-y-0.5">
-            Mulai Sekarang
+          <Link to="/guide" className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 hover:shadow-orange-600/40 hover:-translate-y-0.5">
+            Mulai Belajar Sekarang
           </Link>
         </div>
       </section>
@@ -173,10 +179,10 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2">
               Hello, <span className="font-light italic text-slate-600">Salam Kenal</span>
             </h2>
-            <h3 className="text-2xl font-bold text-blue-600">digitalbareng</h3>
+            <h3 className="text-2xl font-bold text-orange-600 underline decoration-orange-200 underline-offset-8 decoration-4">digitalbareng</h3>
           </div>
-          <p className="text-lg text-slate-700 leading-relaxed">
-            Berhenti cuma jadi penonton! Saatnya ubah internet jadi mesin pencetak uangmu. Dengan kekuatan <strong>microstock AI</strong>, aku akan pandu kamu step-by-step meraup income dalam Dollar & Rupiah, 100% <strong>#DariRumahAja</strong>.
+          <p className="text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto">
+            Berhenti cuma jadi penonton! Saatnya ubah internet jadi mesin pencetak uangmu. Dengan kekuatan <strong>microstock AI</strong> dan tools dari Digital Bareng, aku akan pandu kamu step-by-step meraup income dalam Dollar & Rupiah, 100% <strong>#DariRumahAja</strong>.
           </p>
 
           <div className="pt-6">
@@ -213,7 +219,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Artikel Microstock AI Terbaru</h2>
             <p className="text-slate-600">Insight dan strategi microstock AI yang saya pelajari minggu ini.</p>
           </div>
-          <Link to="/blog" className="text-blue-600 font-medium hover:underline hidden sm:block">
+          <Link to="/blog" className="text-orange-600 font-bold hover:underline hidden sm:block">
             Lihat semua →
           </Link>
         </div>
@@ -221,22 +227,22 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {articlesData.slice(0, 3).map((article) => (
             <Link key={article.id} to={`/blog/${article.id}`} className="group block h-full">
-              <article className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-blue-200 h-full flex flex-col overflow-hidden">
+              <article className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-orange-200 h-full flex flex-col overflow-hidden">
                 <div className="w-full h-48 bg-slate-100 overflow-hidden relative">
                   <img src={article.thumbnail} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-medium px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full">{article.category}</span>
-                    <time className="text-xs text-slate-400">{article.date}</time>
+                    <span className="text-[10px] font-bold px-2.5 py-1 bg-orange-50 text-orange-600 rounded-full tracking-wider uppercase">{article.category}</span>
+                    <time className="text-xs text-slate-400 font-medium">{article.date}</time>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2">
                     {article.title}
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-grow">
                     {article.description}
                   </p>
-                  <div className="text-blue-600 text-sm font-medium flex items-center gap-1 mt-auto">
+                  <div className="text-orange-600 text-sm font-bold flex items-center gap-1 mt-auto">
                     Baca selengkapnya <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </div>
                 </div>
@@ -245,7 +251,7 @@ export default function Home() {
           ))}
         </div>
         <div className="mt-8 text-center sm:hidden">
-          <Link to="/blog" className="text-blue-600 font-medium hover:underline">
+          <Link to="/blog" className="text-orange-600 font-bold hover:underline">
             Lihat semua artikel →
           </Link>
         </div>
@@ -253,17 +259,20 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-blue-600 rounded-3xl p-8 md:p-12 text-center text-white my-16 shadow-xl shadow-blue-600/20">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Siap Memulai Microstock AI?</h2>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto text-lg">
-            Pelajari step-by-step bagaimana saya membangun portfolio microstock AI dan memanfaatkan kecerdasan buatan untuk mempercepat workflow produksi aset.
+        <div className="bg-slate-900 rounded-[3rem] p-8 md:p-16 text-center text-white my-16 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-orange-600/20 transition-all duration-700"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-600/10 rounded-full -ml-32 -mb-32 blur-3xl group-hover:bg-orange-600/20 transition-all duration-700"></div>
+          
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 relative z-10">Siap Jadi Microstocker AI Sukses?</h2>
+          <p className="text-slate-400 mb-10 max-w-2xl mx-auto text-lg md:text-xl relative z-10 leading-relaxed">
+            Gunakan strategi Digital Bareng: gabungkan kreativitasmu dengan efisiensi AI untuk mendominasi pasar microstock global.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/guide" className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors">
-              Mulai Baca Guide
+          <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+            <Link to="/guide" className="bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20">
+              Pelajari Guide Gratis
             </Link>
-            <Link to="/tools" className="bg-blue-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-800 transition-colors border border-blue-500">
-              Lihat Tools Saya
+            <Link to="/tools" className="bg-white/10 backdrop-blur-md text-white px-10 py-4 rounded-full font-bold hover:bg-white/20 transition-all border border-white/20">
+              Coba Tools AI
             </Link>
           </div>
         </div>
@@ -338,7 +347,7 @@ export default function Home() {
                   <button 
                     type="submit" 
                     disabled={isSubmitting || !formData.message.trim()}
-                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4"
+                    className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-slate-200 text-white font-bold py-4 px-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-4 shadow-lg shadow-orange-100"
                   >
                     {isSubmitting ? (
                       <>

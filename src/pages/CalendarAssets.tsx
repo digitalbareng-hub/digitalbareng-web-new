@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Search, Filter } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { auth } from '../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -45,7 +46,7 @@ export default function CalendarAssets() {
   if (loadingRoute) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
+        <div className="animate-spin w-8 h-8 border-4 border-orange-600 border-t-transparent rounded-full"></div>
       </div>
     );
   }
@@ -61,19 +62,25 @@ export default function CalendarAssets() {
 
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
+      <Helmet>
+        <title>Calendar Event Microstock Dunia - Strategi Konten | Digital Bareng</title>
+        <meta name="description" content="Daftar lengkap hari besar dan event penting dunia sebagai referensi pembuatan aset microstock musiman yang menguntungkan." />
+      </Helmet>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+        <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
           <div className="flex items-center gap-4 mb-2">
-            <div className="bg-blue-100 p-3 rounded-xl">
-              <Calendar className="w-6 h-6 text-blue-600" />
+            <div className="bg-orange-100 p-3 rounded-2xl">
+              <Calendar className="w-8 h-8 text-orange-600" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-900">Calendar Events Seluruh Dunia</h1>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Calendar Content Dunia</h1>
           </div>
-          <p className="text-slate-500 mb-8 ml-16">Jadwal event penting dunia untuk referensi pembuatan aset microstock Anda.</p>
+          <p className="text-slate-600 mb-8 ml-0 md:ml-16 leading-relaxed max-w-2xl">
+            Jadwal event penting dunia oleh <strong>Digital Bareng</strong> untuk referensi pembuatan aset microstock musiman yang high-demand.
+          </p>
 
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="relative flex-1">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-slate-400" />
               </div>
               <input
@@ -81,17 +88,17 @@ export default function CalendarAssets() {
                 placeholder="Cari event atau kata kunci (contoh: love, spooky)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none"
+                className="block w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-transparent outline-none transition-all"
               />
             </div>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="relative min-w-[200px]">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Filter className="h-5 w-5 text-slate-400" />
               </div>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="block w-full pl-10 pr-8 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none appearance-none bg-white"
+                className="block w-full pl-12 pr-8 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-transparent outline-none appearance-none bg-white font-medium"
               >
                 {categories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -100,17 +107,20 @@ export default function CalendarAssets() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.map(event => (
-              <div key={event.id} className="border border-slate-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-                <div className="font-semibold text-blue-600 mb-1">{event.date}</div>
-                <div className="text-lg font-bold text-slate-900 mb-2">{event.name}</div>
-                <div className="inline-block px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded-md mb-4">
+              <div key={event.id} className="border border-slate-100 bg-slate-50/50 rounded-2xl p-6 hover:border-orange-200 hover:bg-white hover:shadow-xl hover:shadow-orange-600/5 transition-all group">
+                <div className="font-bold text-orange-600 mb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
+                  {event.date}
+                </div>
+                <div className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-orange-700 transition-colors">{event.name}</div>
+                <div className="inline-block px-3 py-1 bg-orange-100 text-orange-600 text-[10px] font-bold rounded-lg mb-5 uppercase tracking-wider">
                   {event.category}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {event.tags.map(tag => (
-                    <span key={tag} className="text-xs text-slate-500 bg-white border border-slate-200 px-2 py-1 rounded-full">
+                    <span key={tag} className="text-xs font-medium text-slate-500 bg-white border border-slate-100 px-3 py-1 rounded-full shadow-sm">
                       #{tag}
                     </span>
                   ))}
@@ -118,8 +128,14 @@ export default function CalendarAssets() {
               </div>
             ))}
             {filteredEvents.length === 0 && (
-              <div className="col-span-full text-center py-12 text-slate-500">
-                Tidak ada event yang sesuai dengan pencarian Anda.
+              <div className="col-span-full text-center py-20">
+                <div className="text-slate-300 mb-4 flex justify-center">
+                  <Search className="w-12 h-12" />
+                </div>
+                <div className="text-slate-500 font-bold">
+                  Tidak ada event yang sesuai dengan pencarian Anda.
+                </div>
+                <button onClick={() => {setSearchQuery(''); setSelectedCategory('All');}} className="mt-4 text-orange-600 font-bold hover:underline">Reset Filternya</button>
               </div>
             )}
           </div>

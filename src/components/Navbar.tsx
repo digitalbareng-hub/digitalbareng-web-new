@@ -32,18 +32,18 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
               <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" alt="DigitalBareng Logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">Digital<span className="text-blue-600">Bareng</span></span>
+            <span className="font-bold text-xl tracking-tight text-slate-900">Digital<span className="text-orange-600">Bareng</span></span>
           </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}>Beranda</Link>
-            <Link to="/guide" className={`font-medium transition-colors ${location.pathname === '/guide' ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}>Guide</Link>
-            <Link to="/tools" className={`font-medium transition-colors ${location.pathname === '/tools' ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}>Tools</Link>
-            <Link to="/blog" className={`font-medium transition-colors ${location.pathname.startsWith('/blog') ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}>Blog</Link>
+            <Link to="/" className={`font-medium transition-colors ${location.pathname === '/' ? 'text-orange-600' : 'text-slate-600 hover:text-orange-600'}`}>Beranda</Link>
+            <Link to="/guide" className={`font-medium transition-colors ${location.pathname === '/guide' ? 'text-orange-600' : 'text-slate-600 hover:text-orange-600'}`}>Guide</Link>
+            <Link to="/tools" className={`font-medium transition-colors ${location.pathname === '/tools' ? 'text-orange-600' : 'text-slate-600 hover:text-orange-600'}`}>Tools</Link>
+            <Link to="/blog" className={`font-medium transition-colors ${location.pathname.startsWith('/blog') ? 'text-orange-600' : 'text-slate-600 hover:text-orange-600'}`}>Blog</Link>
             
             {isAuthLoading ? (
-              <div className="w-8 h-8 rounded-full border-2 border-blue-600 border-t-transparent animate-spin"></div>
+              <div className="w-8 h-8 rounded-full border-2 border-orange-600 border-t-transparent animate-spin"></div>
             ) : user ? (
               <div className="flex items-center gap-4">
                 <div className="text-sm text-slate-600 hidden lg:block">
@@ -59,7 +59,7 @@ export default function Navbar() {
             ) : (
               <Link 
                 to="/login"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition-colors"
+                className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-orange-600/10 hover:shadow-orange-600/20"
               >
                 Log In
               </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
             
             {isAuthLoading ? (
               <div className="flex justify-center py-2">
-                <div className="w-8 h-8 rounded-full border-2 border-blue-600 border-t-transparent animate-spin"></div>
+                <div className="w-8 h-8 rounded-full border-2 border-orange-600 border-t-transparent animate-spin"></div>
               </div>
             ) : user ? (
               <div className="flex flex-col items-center gap-4 pt-2">
@@ -106,7 +106,7 @@ export default function Navbar() {
             ) : (
               <Link 
                 to="/login"
-                className="w-full max-w-xs mx-auto flex justify-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-medium transition-colors mt-2"
+                className="w-full max-w-xs mx-auto flex justify-center bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-xl font-bold transition-colors mt-2 shadow-lg shadow-orange-600/10"
               >
                 Log In
               </Link>

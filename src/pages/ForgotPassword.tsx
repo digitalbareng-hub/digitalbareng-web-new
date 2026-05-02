@@ -52,7 +52,7 @@ export default function ForgotPassword() {
               </div>
               <h3 className="text-lg font-medium text-slate-900 mb-2">Email Terkirim</h3>
               <p className="text-slate-600 mb-6">Silakan periksa kotak masuk Anda untuk tautan reset password. Jika tidak menemukannya, periksa folder spam.</p>
-              <Link to="/login" className="text-blue-600 font-semibold hover:text-blue-700">
+              <Link to="/login" className="text-orange-600 font-semibold hover:text-orange-700">
                 Kembali ke halaman Login
               </Link>
             </div>
@@ -75,7 +75,7 @@ export default function ForgotPassword() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 focus:border-blue-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
+                    className="block w-full pl-10 px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-600 focus:border-orange-600 sm:text-sm bg-slate-50 focus:bg-white transition-colors"
                     placeholder="anda@email.com"
                   />
                 </div>
@@ -85,7 +85,7 @@ export default function ForgotPassword() {
                 <button
                   type="submit"
                   disabled={isLoading || !email}
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 transition-colors"
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:bg-orange-400 transition-colors"
                 >
                   {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Kirim Link Reset'}
                 </button>

@@ -24,29 +24,36 @@ import PromptGenerator from './pages/PromptGenerator';
 import AIMetaGen from './pages/AIMetaGen';
 import CalendarAssets from './pages/CalendarAssets';
 
+import { HelmetProvider } from 'react-helmet-async';
+import { GeminiKeyProvider } from './contexts/GeminiKeyContext';
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<ArticleDetail />} />
-        <Route path="/tools" element={<Tools />} />
-        <Route path="/tools/prompt-generator" element={<PromptGenerator />} />
-        <Route path="/tools/ai-metagen" element={<AIMetaGen />} />
-        <Route path="/tools/calendar-assets" element={<CalendarAssets />} />
-        <Route path="/guide" element={<Guide />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-use" element={<TermsOfUse />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <HelmetProvider>
+      <GeminiKeyProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<ArticleDetail />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/tools/prompt-generator" element={<PromptGenerator />} />
+            <Route path="/tools/ai-metagen" element={<AIMetaGen />} />
+            <Route path="/tools/calendar-assets" element={<CalendarAssets />} />
+            <Route path="/guide" element={<Guide />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </GeminiKeyProvider>
+    </HelmetProvider>
   );
 }

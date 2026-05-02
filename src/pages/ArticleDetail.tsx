@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { articlesData } from '../lib/articles';
 
 export default function ArticleDetail() {
@@ -105,41 +106,45 @@ export default function ArticleDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-white font-sans pt-12">
+      <Helmet>
+        <title>{article.title} | Digital Bareng</title>
+        <meta name="description" content={article.title} />
+      </Helmet>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors mb-8">
-          <ArrowLeft className="w-5 h-5" />
+        <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Kembali ke Blog</span>
         </Link>
         
         <article>
           <div className="mb-10 text-center sm:text-left">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-6">
-              <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+              <span className="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold text-orange-600 tracking-wider uppercase border border-orange-100">
                 {article.category}
               </span>
-              <span className="text-sm text-slate-500">{article.date}</span>
-              <span className="text-sm text-slate-500">·</span>
-              <span className="text-sm text-slate-500">5 min read</span>
+              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">{article.date}</span>
+              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">·</span>
+              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">5 min read</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
               {article.title}
             </h1>
-            <div className="flex items-center justify-center sm:justify-start gap-4">
+            <div className="flex items-center justify-center sm:justify-start gap-4 p-4 bg-slate-50 rounded-2xl w-fit">
               <img 
                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" 
                 alt="Author" 
-                className="w-12 h-12 rounded-full border border-slate-200"
+                className="w-12 h-12 rounded-full border-2 border-white shadow-sm ring-2 ring-orange-100"
               />
               <div className="text-left">
                 <p className="font-bold text-slate-900">Digital Bareng</p>
-                <p className="text-sm text-slate-500">Microstock Contributor</p>
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-widest">Microstock AI Expert</p>
               </div>
             </div>
           </div>
 
           {article.thumbnail && (
-            <div className="w-full h-auto md:h-96 bg-slate-100 rounded-3xl mb-12 flex items-center justify-center border border-slate-200 overflow-hidden">
+            <div className="w-full h-auto md:h-[450px] bg-slate-100 rounded-[2.5rem] mb-12 flex items-center justify-center border border-slate-200 overflow-hidden shadow-2xl shadow-slate-200">
                <img 
                  src={article.thumbnail} 
                  alt={article.title} 
@@ -149,24 +154,24 @@ export default function ArticleDetail() {
           )}
 
           <div 
-            className="prose prose-lg prose-slate max-w-none prose-headings:font-bold prose-headings:text-slate-900 prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-2xl" 
+            className="prose prose-lg prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-slate-900 prose-a:text-orange-600 hover:prose-a:text-orange-700 prose-img:rounded-[2rem] prose-strong:text-slate-900 prose-code:text-orange-600 prose-code:bg-orange-50 prose-code:px-1 prose-code:rounded leading-relaxed" 
             onClick={handleContentClick}
             dangerouslySetInnerHTML={{ __html: article.htmlContent }} 
           />
 
-          <div className="border-t border-slate-200 mt-16 pt-8 flex items-center justify-between">
+          <div className="border-t border-slate-100 mt-16 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex gap-4">
-              <button onClick={handleShare} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors border border-slate-200">
-                <Share2 className="w-4 h-4" /> Share
+              <button onClick={handleShare} className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 rounded-full transition-all border border-slate-200 shadow-sm">
+                <Share2 className="w-4 h-4" /> Share Strategi
               </button>
-              <button onClick={handleSave} className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full transition-colors border ${isSaved ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`}>
+              <button onClick={handleSave} className={`flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-full transition-all border shadow-sm ${isSaved ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}>
                 {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />} 
-                {isSaved ? 'Disimpan' : 'Simpan'}
+                {isSaved ? 'Tersimpan' : 'Simpan Artikel'}
               </button>
             </div>
             <div className="flex flex-wrap gap-2 justify-end">
-              <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">Tips</span>
-              <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium">AI Art</span>
+              <span className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider">Tips Microstock</span>
+              <span className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider">Mulai Digital Bareng</span>
             </div>
           </div>
         </article>
