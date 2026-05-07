@@ -19,7 +19,13 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const { pathname } = useLocation();
   const siteUrl = 'https://digitalbareng.com';
-  const fullUrl = `${siteUrl}${pathname}`;
+  
+  // Normalize pathname: remove trailing slash except for root
+  const normalizedPathname = pathname.length > 1 && pathname.endsWith('/') 
+    ? pathname.slice(0, -1) 
+    : pathname;
+    
+  const fullUrl = `${siteUrl}${normalizedPathname}`;
   
   const defaultTitle = 'Digital Bareng - Panduan Microstock AI & Tools Kreator';
   const defaultDescription = 'Digital Bareng adalah hub edukasi dan tools untuk kreator microstock. Pelajari cara menghasilkan uang dari stok foto, video, dan aset AI.';
