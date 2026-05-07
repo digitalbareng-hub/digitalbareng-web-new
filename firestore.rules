@@ -20,8 +20,8 @@ service cloud.firestore {
       return data.keys().hasAll(['userId', 'name', 'email', 'message', 'status', 'createdAt']) &&
         data.keys().size() == 6 &&
         data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
-        data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
-        data.email is string && data.email.size() > 0 && data.email.size() <= 100 &&
+        data.name is string && data.name.size() >= 0 && data.name.size() <= 100 &&
+        data.email is string && data.email.size() >= 0 && data.email.size() <= 100 &&
         data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
         data.status is string && data.status in ['pending', 'contacted', 'closed'] &&
         data.createdAt == request.time;
