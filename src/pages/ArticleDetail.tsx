@@ -115,13 +115,49 @@ export default function ArticleDetail() {
     }
   };
 
+  const getCustomKeywords = () => {
+    switch (id) {
+      case 'panduan-fundamental-microstock-ai':
+        return "microstock AI, panduan pemula, adobe stock, vecteezy, dreamstime, 123rf, chatgpt, midjourney, upscaling, keywords generator";
+      case 'panduan-lengkap-cara-mendaftar-menjadi-adobe-stock-contributor':
+        return "daftar adobe stock, akun microstock, jualan vector di adobe stock, w-8ben, daftar tax microstock, payoneer adobe stock";
+      case 'cara-cepat-approve-di-adobe-stock':
+        return "cara agar gambar cepat diterima adobe stock, standar eps adobe stock, illustrator action microstock, auto tracing image, ai vectorization";
+      default:
+        return "jualan stok foto, vector art microstock, ai art generator, menghasilkan uang dari internet";
+    }
+  };
+
+  const parseIndonesianDate = (dateStr: string) => {
+    try {
+      const parts = dateStr.split(' ');
+      if (parts.length === 3) {
+        const dd = parts[0];
+        const mmString = parts[1].toLowerCase();
+        const yyyy = parts[2];
+        const monthMap: Record<string, string> = {
+          'januari': '01', 'februari': '02', 'maret': '03', 'april': '04',
+          'mei': '05', 'juni': '06', 'juli': '07', 'agustus': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'desember': '12'
+        };
+        const mm = monthMap[mmString] || '01';
+        return new Date(`${yyyy}-${mm}-${dd}T08:00:00+08:00`).toISOString();
+      }
+      return new Date().toISOString();
+    } catch {
+      return new Date().toISOString();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans pt-12">
       <SEO 
         title={`${article.title} | Digital Bareng`}
         description={article.description}
+        keywords={getCustomKeywords()}
         image={article.thumbnail}
-        article={true}
+        type="Article"
+        datePublished={parseIndonesianDate(article.date)}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link reloadDocument to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">

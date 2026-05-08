@@ -189,7 +189,8 @@ export default function Tools() {
       <SEO 
         title="Professional Hub Tools Microstock AI | Digital Bareng"
         description="Kumpulan tools premium dan gratis untuk meningkatkan produktivitas kreator microstock AI. Mulai dari generator metadata hingga riset pasar."
-        keywords="tools microstock, ai generator, data riset microstock, vector lexicon"
+        keywords="tools microstock, ai generator, data riset microstock, vector lexicon, prompt generator"
+        type="CollectionPage"
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-20 text-center">

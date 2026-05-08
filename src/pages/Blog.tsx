@@ -10,7 +10,8 @@ export default function Blog() {
       <SEO 
         title="Blog Microstock AI - Strategi & Tutorial Terbaru | Digital Bareng"
         description="Kumpulan artikel strategi microstock AI, tutorial, dan tips menghasilkan Dollar dari internet. Temukan insight terbaru hanya di Digital Bareng."
-        keywords="blog microstock, tutorial adobe stock, trik pngtree, ai microstock strategy"
+        keywords="blog microstock, tutorial adobe stock, trik pngtree, ai microstock strategy, panduan microstock ai, cara menghasilkan uang dari microstock, tips jualan vector AI"
+        type="CollectionPage"
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 text-center">

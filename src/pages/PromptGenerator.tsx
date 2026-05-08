@@ -76,12 +76,29 @@ export default function PromptGenerator() {
     );
   }
 
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Prompt Generator",
+    "operatingSystem": "Web",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Ubah ide sederhana menjadi prompt AI Image profesional berbahasa Inggris yang siap jual di Adobe Stock dan agensi microstock lainnya.",
+    "url": "https://www.digitalbareng.com/tools/prompt-generator"
+  };
+
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
       <SEO 
         title="AI Prompt Generator - Buat Prompt Gambar Microstock | Digital Bareng"
         description="Ubah ide sederhana menjadi prompt AI Image profesional berbahasa Inggris yang siap jual di Adobe Stock dan agensi microstock lainnya."
         keywords="ai prompt generator, microstock prompts, ai art keywords, midjourney prompts"
+        type="WebPage"
+        schemaMarkup={softwareSchema}
       />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">

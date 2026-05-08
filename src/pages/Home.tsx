@@ -68,6 +68,7 @@ export default function Home() {
         title="Digital Bareng - Hub Microstock AI & Tools Kreator Terlengkap"
         description="Pelajari strategi microstock AI, gunakan tools otomatis untuk Adobe Stock & Pngtree, dan mulai hasilkan income online dari rumah bersama Digital Bareng."
         keywords="microstock AI, digital bareng, belajar microstock, tools AI kreator, penghasilan tambahan online"
+        type="WebPage"
       />
       {/* Hero Section */}
       <section className="py-20 text-center relative overflow-hidden">

@@ -189,12 +189,29 @@ export default function DBMetadata() {
     );
   }
 
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "dbmetadata",
+    "operatingSystem": "Web",
+    "applicationCategory": "UtilitiesApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Generate judul, deskripsi dan keywords otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng.",
+    "url": "https://www.digitalbareng.com/tools/dbmetadata"
+  };
+
   return (
     <div className="pt-24 pb-16 bg-slate-50 min-h-screen">
       <SEO 
         title="dbmetadata - AI Keywords & Title Generator | Digital Bareng"
         description="Generate judul, deskripsi dan keywords (metadata) otomatis untuk aset Adobe Stock dan Pngtree menggunakan AI Vision. Dioptimalkan oleh Digital Bareng."
         keywords="ai metagen, keywords generator, microstock metadata, adobe stock keywords, pngtree keywords"
+        type="WebPage"
+        schemaMarkup={softwareSchema}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
