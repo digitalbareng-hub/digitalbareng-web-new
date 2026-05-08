@@ -18,7 +18,7 @@ const SEO: React.FC<SEOProps> = ({
   article 
 }) => {
   const { pathname } = useLocation();
-  const siteUrl = 'https://digitalbareng.com';
+  const siteUrl = 'https://www.digitalbareng.com';
   
   // Normalize pathname: remove trailing slash except for root
   const normalizedPathname = pathname.length > 1 && pathname.endsWith('/') 
