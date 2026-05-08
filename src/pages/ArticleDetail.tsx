@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck } from 'lucide-react';
+import { ArrowLeft, Share2, BookmarkPlus, BookmarkCheck, ChevronLeft, ChevronRight, List } from 'lucide-react';
 import SEO from '../components/SEO';
 import { articlesData } from '../lib/articles';
+
+interface TocItem {
+  id: string;
+  text: string | null;
+  level: number;
+}
 
 export default function ArticleDetail() {
   const { id } = useParams();
@@ -10,6 +16,8 @@ export default function ArticleDetail() {
   const [isSaved, setIsSaved] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [toc, setToc] = useState<TocItem[]>([]);
+  const [processedHtml, setProcessedHtml] = useState('');
 
   const displayToast = (message: string) => {
     setToastMessage(message);
@@ -149,8 +157,47 @@ export default function ArticleDetail() {
     }
   };
 
+  const currentIndex = articlesData.findIndex(a => a.id === id);
+  // nextArticle means newer post (lower index since array is ordered newest first)
+  const nextArticle = currentIndex > 0 ? articlesData[currentIndex - 1] : null; 
+  // prevArticle means older post (higher index)
+  const prevArticle = currentIndex !== -1 && currentIndex < articlesData.length - 1 ? articlesData[currentIndex + 1] : null;
+
+  useEffect(() => {
+    if (article.htmlContent) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(article.htmlContent, 'text/html');
+      const headings = doc.querySelectorAll('h2, h3');
+      const tocData: TocItem[] = [];
+      
+      headings.forEach((heading, index) => {
+        const headingId = `heading-${index}`;
+        heading.id = headingId;
+        heading.classList.add('scroll-mt-28');
+        tocData.push({
+          id: headingId,
+          text: heading.textContent,
+          level: heading.tagName.toLowerCase() === 'h2' ? 2 : 3
+        });
+      });
+      
+      setToc(tocData);
+      setProcessedHtml(doc.body.innerHTML);
+    }
+  }, [article.htmlContent, id]);
+
+  const scrollToHeading = (e: React.MouseEvent<HTMLAnchorElement>, headingId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(headingId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Update URL hash without jumping
+      window.history.pushState(null, '', `#${headingId}`);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white font-sans pt-12">
+    <div className="min-h-screen bg-slate-50 font-sans pt-12 pb-24">
       <SEO 
         title={`${article.title} | Digital Bareng`}
         description={article.description}
@@ -159,70 +206,200 @@ export default function ArticleDetail() {
         type="Article"
         datePublished={parseIndonesianDate(article.date)}
       />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link reloadDocument to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Kembali ke Blog</span>
         </Link>
         
-        <article>
-          <div className="mb-10 text-center sm:text-left">
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-6">
-              <span className="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold text-orange-600 tracking-wider uppercase border border-orange-100">
-                {article.category}
-              </span>
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">{article.date}</span>
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">·</span>
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">5 min read</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
-              {article.title}
-            </h1>
-            <div className="flex items-center justify-center sm:justify-start gap-4 p-4 bg-slate-50 rounded-2xl w-fit">
-              <img 
-                src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" 
-                alt="Author" 
-                className="w-12 h-12 rounded-full border-2 border-white shadow-sm ring-2 ring-orange-100"
-              />
-              <div className="text-left">
-                <p className="font-bold text-slate-900">Digital Bareng</p>
-                <p className="text-xs font-bold text-orange-600 uppercase tracking-widest">Microstock AI Expert</p>
+        <div className="grid lg:grid-cols-[1fr_300px] gap-12 items-start">
+          <article className="min-w-0">
+            <div className="mb-10 text-center sm:text-left">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 mb-6">
+                <span className="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-[10px] font-bold text-orange-600 tracking-wider uppercase border border-orange-100">
+                  {article.category}
+                </span>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">{article.date}</span>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">·</span>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-tight">5 min read</span>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
+                {article.title}
+              </h1>
+              <div className="flex items-center justify-center sm:justify-start gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm w-fit">
+                <img 
+                  src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjskHwULPmRQcVE7FW7sCLElHzvCDtb9ziFMYFV_tAeVrm_QoRgpz8_tMb51xXxETXdilfW_-xJDj5OwIAWzWQRcr-4DT0dLJtEdwvMEudzGktBREUgxaJ66FZkM2RjslWTe_Be4vISWFkhHLOyk34MqyF0sNUKhAX8eJ3OM-UIZ25zhg/s1600/ChatGPT%20Image%20May%202,%202026,%2010_45_07%20AM.png" 
+                  alt="Author" 
+                  className="w-12 h-12 rounded-full border-2 border-white shadow-sm ring-2 ring-orange-100"
+                />
+                <div className="text-left">
+                  <p className="font-bold text-slate-900">Digital Bareng</p>
+                  <p className="text-xs font-bold text-orange-600 uppercase tracking-widest">Microstock AI Expert</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {article.thumbnail && (
-            <div className="w-full h-auto md:h-[450px] bg-slate-100 rounded-[2.5rem] mb-12 flex items-center justify-center border border-slate-200 overflow-hidden shadow-2xl shadow-slate-200">
-               <img 
-                 src={article.thumbnail} 
-                 alt={article.title} 
-                 className="w-full h-full object-cover"
-               />
-            </div>
-          )}
+            {article.thumbnail && (
+              <div className="w-full h-auto md:h-[450px] bg-slate-100 rounded-[2.5rem] mb-12 flex items-center justify-center border border-slate-200 overflow-hidden shadow-2xl shadow-slate-200">
+                <img 
+                  src={article.thumbnail} 
+                  alt={article.title} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
-          <div 
-            className="prose prose-lg prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-slate-900 prose-a:text-orange-600 hover:prose-a:text-orange-700 prose-img:rounded-[2rem] prose-strong:text-slate-900 prose-code:text-orange-600 prose-code:bg-orange-50 prose-code:px-1 prose-code:rounded leading-relaxed" 
-            onClick={handleContentClick}
-            dangerouslySetInnerHTML={{ __html: article.htmlContent }} 
-          />
+            {/* Mobile TOC */}
+            {toc.length > 0 && (
+              <div className="lg:hidden bg-slate-100 border border-slate-200 rounded-3xl p-6 mb-12">
+                <h3 className="font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+                  <List className="w-5 h-5 text-orange-600" />
+                  Daftar Isi
+                </h3>
+                <nav className="space-y-1">
+                  {toc.map((item) => (
+                    <a
+                      key={'mobile-' + item.id}
+                      href={`#${item.id}`}
+                      onClick={(e) => scrollToHeading(e, item.id)}
+                      className={`block text-sm transition-colors ${
+                        item.level === 2 
+                          ? 'font-bold text-slate-700 hover:text-orange-600 py-1' 
+                          : 'font-medium text-slate-500 hover:text-orange-600 pl-4 py-1'
+                      }`}
+                    >
+                      {item.text}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            )}
 
-          <div className="border-t border-slate-100 mt-16 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex gap-4">
-              <button onClick={handleShare} className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 rounded-full transition-all border border-slate-200 shadow-sm">
-                <Share2 className="w-4 h-4" /> Share Strategi
-              </button>
-              <button onClick={handleSave} className={`flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-full transition-all border shadow-sm ${isSaved ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}>
-                {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />} 
-                {isSaved ? 'Tersimpan' : 'Simpan Artikel'}
-              </button>
+            <div 
+              className="prose prose-lg prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-slate-900 prose-a:text-orange-600 hover:prose-a:text-orange-700 prose-img:rounded-[2rem] prose-strong:text-slate-900 prose-code:text-orange-600 prose-code:bg-orange-50 prose-code:px-1 prose-code:rounded leading-relaxed" 
+              onClick={handleContentClick}
+              dangerouslySetInnerHTML={{ __html: processedHtml || article.htmlContent }} 
+            />
+
+            <div className="border-t border-slate-200 mt-16 pt-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex gap-4">
+                <button onClick={handleShare} className="flex items-center gap-2 px-6 py-3 text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 rounded-full transition-all border border-slate-200 shadow-sm">
+                  <Share2 className="w-4 h-4" /> Share Strategi
+                </button>
+                <button onClick={handleSave} className={`flex items-center gap-2 px-6 py-3 text-sm font-bold rounded-full transition-all border shadow-sm ${isSaved ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`}>
+                  {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <BookmarkPlus className="w-4 h-4" />} 
+                  {isSaved ? 'Tersimpan' : 'Simpan Artikel'}
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2 justify-end">
+                <span className="px-4 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">Tips Microstock</span>
+                <span className="px-4 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">Digital Bareng</span>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2 justify-end">
-              <span className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider">Tips Microstock</span>
-              <span className="px-4 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs font-bold uppercase tracking-wider">Mulai Digital Bareng</span>
+
+            {/* Internal Links / Related Articles (Mobile) */}
+            <div className="lg:hidden mt-12 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+              <h3 className="font-extrabold text-slate-900 mb-6 flex items-center gap-2">
+                Artikel Terkait
+              </h3>
+              <div className="flex flex-col gap-6">
+                {articlesData.filter(a => a.id !== id).slice(0, 3).map((related) => (
+                  <Link key={related.id} to={`/blog/${related.id}`} className="group block">
+                    <div className="flex gap-4 items-center">
+                      <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-slate-100">
+                        <img src={related.thumbnail} alt={related.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-sm text-slate-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-1">
+                          {related.title}
+                        </h4>
+                        <span className="text-xs text-slate-500 font-medium">{related.date}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </article>
+
+            {/* Pagination / Older Newer */}
+            <div className="border-t border-slate-200 mt-10 pt-10 flex flex-col sm:flex-row items-stretch gap-4">
+              {nextArticle ? (
+                <Link to={`/blog/${nextArticle.id}`} className="flex-1 p-6 bg-white border border-slate-200 rounded-2xl hover:border-orange-300 hover:shadow-md transition-all group flex flex-col items-start text-left">
+                  <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 flex items-center gap-1">
+                    <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    Artikel Selanjutnya
+                  </div>
+                  <h3 className="font-bold text-slate-900 line-clamp-2">{nextArticle.title}</h3>
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+              {prevArticle ? (
+                <Link to={`/blog/${prevArticle.id}`} className="flex-1 p-6 bg-white border border-slate-200 rounded-2xl hover:border-orange-300 hover:shadow-md transition-all group flex flex-col items-end text-right">
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-1">
+                    Artikel Sebelumnya
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <h3 className="font-bold text-slate-900 line-clamp-2">{prevArticle.title}</h3>
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+            </div>
+
+          </article>
+
+          {/* Sidebar */}
+          <aside className="hidden lg:block sticky top-24 space-y-8 min-w-0">
+            {/* Table of Contents */}
+            {toc.length > 0 && (
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                <h3 className="font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+                  <List className="w-5 h-5 text-orange-600" />
+                  Daftar Isi
+                </h3>
+                <nav className="space-y-1">
+                  {toc.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={(e) => scrollToHeading(e, item.id)}
+                      className={`block text-sm transition-colors ${
+                        item.level === 2 
+                          ? 'font-bold text-slate-700 hover:text-orange-600 py-1' 
+                          : 'font-medium text-slate-500 hover:text-orange-600 pl-4 py-1'
+                      }`}
+                    >
+                      {item.text}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            )}
+
+            {/* Internal Links / Related Articles */}
+            <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+              <h3 className="font-extrabold text-slate-900 mb-4">Artikel Terkait</h3>
+              <div className="space-y-6">
+                {articlesData.filter(a => a.id !== id).slice(0, 3).map((related) => (
+                  <Link key={related.id} to={`/blog/${related.id}`} className="group block">
+                    <div className="flex gap-4 items-start">
+                      <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-slate-100">
+                        <img src={related.thumbnail} alt={related.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-sm text-slate-900 group-hover:text-orange-600 transition-colors line-clamp-2 mb-1">
+                          {related.title}
+                        </h4>
+                        <span className="text-xs text-slate-500 font-medium">{related.date}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </div>
       </div>
 
       {/* Toast Notification */}
