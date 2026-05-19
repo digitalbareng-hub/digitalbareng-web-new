@@ -207,7 +207,7 @@ export default function ArticleDetail() {
         datePublished={parseIndonesianDate(article.date)}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link reloadDocument to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
+        <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors mb-8 font-bold group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Kembali ke Blog</span>
         </Link>

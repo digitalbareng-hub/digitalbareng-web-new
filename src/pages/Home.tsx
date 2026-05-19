@@ -117,7 +117,7 @@ export default function Home() {
           <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
             Digital Bareng adalah hub edukasi microstock AI terbaik. Dapatkan panduan eksklusif, tools AI otomatis, dan strategi rahasia meraup Dollar dari internet.
           </p>
-          <Link reloadDocument to="/guide" className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 hover:shadow-orange-600/40 hover:-translate-y-0.5">
+          <Link to="/guide" className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white bg-orange-600 rounded-full hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 hover:shadow-orange-600/40 hover:-translate-y-0.5">
             Mulai Belajar Sekarang
           </Link>
         </div>
@@ -220,14 +220,14 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-slate-900 mb-2">Artikel Microstock AI Terbaru</h2>
             <p className="text-slate-600">Insight dan strategi microstock AI yang saya pelajari minggu ini.</p>
           </div>
-          <Link reloadDocument to="/blog" className="text-orange-600 font-bold hover:underline hidden sm:block">
+          <Link to="/blog" className="text-orange-600 font-bold hover:underline hidden sm:block">
             Lihat semua →
           </Link>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {articlesData.slice(0, 3).map((article) => (
-            <Link reloadDocument key={article.id} to={`/blog/${article.id}`} className="group block h-full">
+            <Link key={article.id} to={`/blog/${article.id}`} className="group block h-full">
               <article className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 hover:border-orange-200 h-full flex flex-col overflow-hidden">
                 <div className="w-full h-48 bg-slate-100 overflow-hidden relative">
                   <img src={article.thumbnail} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -252,7 +252,7 @@ export default function Home() {
           ))}
         </div>
         <div className="mt-8 text-center sm:hidden">
-          <Link reloadDocument to="/blog" className="text-orange-600 font-bold hover:underline">
+          <Link to="/blog" className="text-orange-600 font-bold hover:underline">
             Lihat semua artikel →
           </Link>
         </div>
@@ -269,10 +269,10 @@ export default function Home() {
             Gunakan strategi Digital Bareng: gabungkan kreativitasmu dengan efisiensi AI untuk mendominasi pasar microstock global.
           </p>
           <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
-            <Link reloadDocument to="/guide" className="bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20">
+            <Link to="/guide" className="bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20">
               Pelajari Guide Gratis
             </Link>
-            <Link reloadDocument to="/tools" className="bg-white/10 backdrop-blur-md text-white px-10 py-4 rounded-full font-bold hover:bg-white/20 transition-all border border-white/20">
+            <Link to="/tools" className="bg-white/10 backdrop-blur-md text-white px-10 py-4 rounded-full font-bold hover:bg-white/20 transition-all border border-white/20">
               Coba Tools AI
             </Link>
           </div>

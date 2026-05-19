@@ -174,7 +174,7 @@ export default function Tools() {
     );
 
     return tool.path ? (
-      <Link reloadDocument to={tool.path} className="block h-full no-underline">
+      <Link to={tool.path} className="block h-full no-underline">
         {cardContent}
       </Link>
     ) : (
@@ -239,7 +239,7 @@ export default function Tools() {
           <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto relative z-10 font-medium leading-relaxed">
             Kami terus mengambangkan ekosistem ini. Punya ide tool yang bisa mempercepat workflow Microstock AI? Sampaikan ke tim kami.
           </p>
-          <Link reloadDocument to="/contact" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-5 rounded-2xl font-black hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10 group/btn active:scale-95">
+          <Link to="/contact" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-5 rounded-2xl font-black hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10 group/btn active:scale-95">
             HUBUNGI TIM DEVELOPER <Bot className="w-6 h-6 group-hover/btn:rotate-12 transition-transform" />
           </Link>
         </div>

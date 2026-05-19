@@ -96,7 +96,7 @@ export default function Guide() {
             <p className="text-slate-400 mb-10 max-w-lg mx-auto text-lg relative z-10">
               Dapatkan insight eksklusif dan strategi terbaru seputar microstock AI langsung di blog resmi Digital Bareng.
             </p>
-            <Link reloadDocument to="/blog" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10">
+            <Link to="/blog" className="inline-flex items-center gap-3 bg-orange-600 text-white px-10 py-4 rounded-full font-bold hover:bg-orange-700 transition-all shadow-xl shadow-orange-600/20 relative z-10">
               Mulai Baca Artikel Strategi <PlayCircle className="w-5 h-5" />
             </Link>
           </div>
